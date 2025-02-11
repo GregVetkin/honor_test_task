@@ -8,7 +8,7 @@ from handlers.file_saver    import FileSaver
 
 
 
-def prepaprations(db_engine):
+def preparations(db_engine):
     with db_engine.begin() as conn:
         conn.execute(sqlalchemy.text(f"""
             CREATE TABLE IF NOT EXISTS created_tables_by_file (
@@ -54,7 +54,7 @@ if __name__ == "__main__":
     file_saver  = FileSaver(DOWNLOAD_FOLDER)
     mail_server = IMAPMailServer(MailData.SERVER, MailData.EMAIL, MailData.PASSWORD)
     db_engine   = sqlalchemy.create_engine(DatabaseConfig.URL)
-    prepaprations(db_engine)
+    preparations(db_engine)
 
     with mail_server as mailbox:
         for email_id in mailbox.fetch_unread_email_ids():
